@@ -1,0 +1,50 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>THÔNG TIN CỦA BẠN</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+ </head>
+ <body>
+     <header>
+         <nav>
+             <a href="/" id="home-btn">Home</a> 
+             <a href="/products" id="products-btn">Products</a>
+             <a href="/cart" id="cart-btn">Cart</a>
+             <a href="/user" id="personal-info-btn">User</a> 
+             <a href="/logout" id="logout-btn">Logout</a>
+         </nav>
+     </header>
+     
+     <main>
+         <section id="user-info">
+             <h2>THÔNG TIN CỦA BẠN</h2>
+             <p><strong>Name:</strong> {{ user_name }}</p>
+             <p><strong>Email:</strong> {{ email_addr}}</p>
+         </section>
+         <section id="user-orders">
+            <h2>SẢN PHẨM ĐẶT HÀNG</h2>
+            {% if orders %}
+                <div class="order-container">
+                    {% for order in orders %}
+                    <div class="order-item">
+                        <p><strong>Date Purchased:</strong> {{ order['date_purchased'] }}</p>
+                        <img src="{{ url_for('static', filename=order['image']) }}" alt="{{ order['title'] }}" height="150px" width="170px">
+                        <h3>{{ order['title'] }}</h3>
+                        <p>{{ order['description'] }}</p>
+                        <p>Price:{{ order['price'] }}VNĐ</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>BẠN CHƯA CÓ SẢN PHẨM NÀO.</p>
+            {% endif %}
+        </section>
+     </main>
+     <footer>
+         <p>&copy; Gia Huy Shop</p>
+     </footer>
+ </body>
+ </html>
+ 
