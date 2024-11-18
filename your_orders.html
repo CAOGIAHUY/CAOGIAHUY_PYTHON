@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Your Order Details</h1>
+        <nav>
+            <a href="{{ url_for('index') }}" id="home-btn">Home</a>
+            <a href="{{ url_for('products') }}" id="products-btn">Products</a>
+            <a href="{{ url_for('show_cart') }}" id="cart-btn">Cart</a>
+            <a href="{{ url_for('user_page') }}" id="personal-info-btn">User</a> <!-- Thêm link cho thông tin cá nhân -->
+            <a href="{{ url_for('login') }}" id="login-btn">Login</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div style="display: flex;">
+            <div style="flex: 1; padding: 1rem;">
+                <h2>TÓM TẮT ĐƠN HÀNG</h2>
+                <p><strong>HỌ VÀ TÊN:</strong> {{ order['name'] }}</p>
+                <p><strong>Email:</strong> {{ order['email'] }}</p>
+                <p><strong>SỐ ĐIỆN THOẠI:</strong> {{ order['phone'] }}</p>
+                <p><strong>ĐỊA CHỈ NHÀ 1:</strong> {{ order['address1'] }}</p>
+                <p><strong>ĐỊA CHỈ NHÀ 2:</strong> {{ order['address2'] }}</p>
+                <p><strong>THÀNH PHỐ:</strong> {{ order['city'] }}</p>
+                <p><strong>QUẬN,HUYỆN:</strong> {{ order['state'] }}</p>
+                <p><strong>ĐÁT NƯỚC:</strong> {{ order['country'] }}</p>
+                <p><strong>MÃ PIN:</strong> {{ order['pincode'] }}</p>
+                <p><strong>PHƯƠNG THỨC THANH TOÁN:</strong> {{ order['payment_mode'] }}</p>
+                <p>{{ order['message'] }}</p>
+            </div>
+            <div style="flex: 1; padding: 1rem;">
+                <h2>MẶT HÀNG ĐÃ MUA</h2>
+                {% for item in order['cart'] %}
+                <div class="cart-item">
+                    <img src="{{ url_for('static', filename=item['images']) }}" alt="{{ item['title'] }}" height="150px" width="180px">
+                    <h3>{{ item['title'] }}</h3>
+                    <p>{{ item['description'] }}</p>
+                    <p>Price:{{ item['price'] }}VNĐ</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Gia Huy Shop</p>
+    </footer>
+</body>
+</html>
